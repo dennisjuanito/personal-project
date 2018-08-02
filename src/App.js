@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Login from './components/Login/Login';
+import routes from "./routes.js";
+import {withRouter} from "react-router-dom";
+import Home from './components/Home/Home';
 
 class App extends Component {
+  componentDidMount() {
+    console.log(this.props.history);
+  }
   render() {
+    
     return (
       <div className="App">
-        <Login />
+        {routes}
       </div>
     );
   }
 }
 
-export default App;
+export default withRouter(App);

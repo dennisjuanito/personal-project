@@ -4,7 +4,8 @@ const express = require("express"),
   session = require("express-session"),
   massive = require("massive"),
   axios = require('axios'),
-  authController = require("./controllers/authController.js");
+  authController = require("./controllers/authController.js"),
+  logoutController = require("./controllers/logoutController.js");
   
   let { SERVER_PORT, CONNECTING_STRING, SECRET} = process.env;
   const app = express();
@@ -26,9 +27,9 @@ app.use(
 // ###################################################################################################################################################################
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% login and register %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 app.get(`/auth/callback`, authController);
+app.post(`/api/logout`, logoutController);
 app.post(`/api/auth/login`);
 app.post(`/api/auth/register`);
-app.post(`/api/logout`);
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Public post and events %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 app.get(`/api/posts/:postid:`); // get a post
@@ -59,6 +60,11 @@ app.put(`/api/settings/:userid`); // update the user account. This typically don
 
 massive(CONNECTING_STRING).then(connection => {
   app.set("db", connection);
+});
+
+
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "index.html"));
 });
 
 app.listen(SERVER_PORT, () => {

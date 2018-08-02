@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
-export default class Login extends Component {
-  login() {
+export default class GetStarted extends Component {
+  getStarted() {
     var { REACT_APP_DOMAIN, REACT_APP_CLIENT_ID } = process.env;
     var encodeUri = `${encodeURIComponent(window.location.origin)}/auth/callback`;
     var baseUrl = `https://${REACT_APP_DOMAIN}`;
@@ -16,7 +16,8 @@ export default class Login extends Component {
   render() {
     return (
         <div>
-            <button onClick={() => this.login()}>Get Started</button>
+            <button onClick={() => this.getStarted()}>Get Started</button>
+            <a href={`http://localhost:${process.env.SERVER_PORT}/api/logout`}><button>logout</button></a>
         </div>
     );
   }
