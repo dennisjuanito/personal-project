@@ -3,15 +3,16 @@ const express = require("express"),
   bodyParser = require("body-parser"),
   session = require("express-session"),
   massive = require("massive"),
-  axios = require('axios'),
+  axios = require("axios"),
   authController = require("./controllers/authController.js"),
-  logoutController = require("./controllers/logoutController.js");
-  
-  let { SERVER_PORT, CONNECTING_STRING, SECRET} = process.env;
-  const app = express();
+  logoutController = require("./controllers/logoutController.js"),
+  checkSessionController = require("./controllers/checkSessionController.js");
+
+let { SERVER_PORT, CONNECTING_STRING, SECRET } = process.env;
+const app = express();
 
 // top level middleware
-app.use(express.static(`${__dirname}/build`));
+app.use(express.static(`${__dirname}/../build`));
 app.use(bodyParser.json());
 app.use(
   session({
@@ -21,13 +22,18 @@ app.use(
   })
 );
 
-
 // ###################################################################################################################################################################
 //                                                          my current end points
 // ###################################################################################################################################################################
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% login and register %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 app.get(`/auth/callback`, authController);
-app.post(`/api/logout`, logoutController);
+app.get(`/api/logout`, logoutController);
+app.get(`/api/check-session`, checkSessionController);
+
+
+
+
+
 app.post(`/api/auth/login`);
 app.post(`/api/auth/register`);
 
@@ -62,10 +68,9 @@ massive(CONNECTING_STRING).then(connection => {
   app.set("db", connection);
 });
 
-
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "index.html"));
-});
+// app.get("*", (req, res, next) => {
+//   res.sendFile(path.join(`${__dirname}/../build/index.html`));
+// });
 
 app.listen(SERVER_PORT, () => {
   console.log(`Your personal project is running on server${SERVER_PORT}`);

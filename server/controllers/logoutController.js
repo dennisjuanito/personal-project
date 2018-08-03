@@ -1,4 +1,5 @@
-module.exports = async (req, res) => {
+module.exports =  (req, res) => {
     req.session.destroy();
-    res.redirect("/");
+    res.redirect('http://localhost:3000/');
+    
 }

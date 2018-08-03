@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 
+
 export default class GetStarted extends Component {
   getStarted() {
     var { REACT_APP_DOMAIN, REACT_APP_CLIENT_ID } = process.env;
@@ -17,7 +18,7 @@ export default class GetStarted extends Component {
     return (
         <div>
             <button onClick={() => this.getStarted()}>Get Started</button>
-            <a href={`http://localhost:${process.env.SERVER_PORT}/api/logout`}><button>logout</button></a>
+           
         </div>
     );
   }
