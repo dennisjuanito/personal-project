@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import axios from "axios";
 import dotenv from "dotenv";
+import Button from "@material-ui/core/Button";
 import {connect} from "react-redux";
+import Stepper from "./Stepper.js";
 import {checkUserSession} from "../../ducks/reducers/checkSessionReducer.js";
 dotenv.config();
 
@@ -26,11 +28,12 @@ class Home extends Component {
             user.auth_id ? (
               <div>
               <p>Home</p>
-              <a href={`/api/logout`}><button>logout</button></a>
+              <a href={`/api/logout`}><Button>logout</Button></a>
               </div>
-              
+       
             ): (<p>Please log in!!!</p>)
           }
+                 <Stepper />
       </div>
     )
   }
