@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
   root: {
-    width: '90%',
+    width: '50%',
   },
   button: {
     marginTop: theme.spacing.unit,
@@ -26,7 +26,7 @@ const styles = theme => ({
 });
 
 function getSteps() {
-  return ['Select campaign settings', 'Create an ad group', 'Create an ad'];
+  return ['Select campaign settings', 'Create an ad group', 'Create an ad', 'avatar'];
 }
 
 function getStepContent(step) {
@@ -42,6 +42,7 @@ function getStepContent(step) {
               and learn how to enhance your ads using features like ad extensions.
               If you run into any problems with your ads, find out how to tell if
               they're running and how to resolve approval issues.`;
+    case 3: `This will be a section for avatar picture`;
     default:
       return 'Unknown step';
   }
