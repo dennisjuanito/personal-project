@@ -1,5 +1,6 @@
 module.exports =  (req, res) => {
-    req.session.destroy();
-    res.redirect('http://localhost:3000/');
-    
+    if (req.session.user) {
+        req.session.destroy();
+        res.redirect('http://localhost:3000/');
+    }
 }

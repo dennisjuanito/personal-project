@@ -1,8 +1,10 @@
+
 let initialState = {
   user: {}
 };
-
+// action types
 const CHECK_USER_SESSION = "CHECK_USER_SESSION";
+
 export default function checkSessionReducer(state = initialState, action) {
   switch (action.type) {
     case CHECK_USER_SESSION:
@@ -12,9 +14,15 @@ export default function checkSessionReducer(state = initialState, action) {
   }
 }
 
+
 export function checkUserSession(user) {
   return {
     type: CHECK_USER_SESSION,
     payload: user
   };
 }
+
+
+
+
+

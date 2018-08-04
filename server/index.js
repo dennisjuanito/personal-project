@@ -6,7 +6,8 @@ const express = require("express"),
   axios = require("axios"),
   authController = require("./controllers/authController.js"),
   logoutController = require("./controllers/logoutController.js"),
-  checkSessionController = require("./controllers/checkSessionController.js");
+  checkSessionController = require("./controllers/checkSessionController.js"),
+  sessionChecker = require("./middleware/sessionChecker.js");
 
 let { SERVER_PORT, CONNECTING_STRING, SECRET } = process.env;
 const app = express();
@@ -22,6 +23,7 @@ app.use(
   })
 );
 
+// app.use(sessionChecker);
 // ###################################################################################################################################################################
 //                                                          my current end points
 // ###################################################################################################################################################################
@@ -30,12 +32,12 @@ app.get(`/auth/callback`, authController);
 app.get(`/api/logout`, logoutController);
 app.get(`/api/check-session`, checkSessionController);
 
+app.post(`/api/auth/register`);
 
 
 
 
 app.post(`/api/auth/login`);
-app.post(`/api/auth/register`);
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Public post and events %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 app.get(`/api/posts/:postid:`); // get a post
@@ -68,9 +70,9 @@ massive(CONNECTING_STRING).then(connection => {
   app.set("db", connection);
 });
 
-// app.get("*", (req, res, next) => {
-//   res.sendFile(path.join(`${__dirname}/../build/index.html`));
-// });
+app.get("*", (req, res, next) => {
+  res.sendFile(path.join(`${__dirname}/../build/index.html`));
+});
 
 app.listen(SERVER_PORT, () => {
   console.log(`Your personal project is running on server${SERVER_PORT}`);
