@@ -9,7 +9,7 @@ class Home extends Component {
   componentDidMount() {
     axios.get(`/api/check-session`).then(response => {
       this.props.checkUserSession(response.data);
-      console.log(response.data);
+      console.log(response;
     });
   }
   render() {
