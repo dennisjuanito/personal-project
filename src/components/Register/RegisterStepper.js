@@ -8,6 +8,7 @@ import StepContent from '@material-ui/core/StepContent';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import ComplexButton from "./Button/ComplexButton.js";
 
 const styles = theme => ({
   root: {
@@ -26,15 +27,13 @@ const styles = theme => ({
 });
 
 function getSteps() {
-  return ['Select campaign settings', 'Create an ad group', 'Create an ad', 'avatar'];
+  return ['Select your roles', 'Create a basic account information', 'Additional Information', 'Choose your avatar'];
 }
 
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return `For each ad campaign that you create, you can control how much
-              you're willing to spend on clicks and conversions, which networks
-              and geographical locations you want your ads to show on, and more.`;
+      return (<ComplexButton />);
     case 1:
       return 'An ad group contains one or more ads which target a shared set of keywords.';
     case 2:
@@ -42,7 +41,7 @@ function getStepContent(step) {
               and learn how to enhance your ads using features like ad extensions.
               If you run into any problems with your ads, find out how to tell if
               they're running and how to resolve approval issues.`;
-    case 3: `This will be a section for avatar picture`;
+    case 3: return `This will be a section for avatar picture`;
     default:
       return 'Unknown step';
   }
@@ -84,7 +83,7 @@ class VerticalLinearStepper extends React.Component {
               <Step key={label}>
                 <StepLabel>{label}</StepLabel>
                 <StepContent>
-                  <Typography>{getStepContent(index)}</Typography>
+                  {getStepContent(index)}
                   <div className={classes.actionsContainer}>
                     <div>
                       <Button
