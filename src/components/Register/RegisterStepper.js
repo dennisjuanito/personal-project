@@ -9,10 +9,11 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ComplexButton from "./Button/ComplexButton.js";
+import BasicInformationForm from './Form/BasicInformationForm.js';
 
 const styles = theme => ({
   root: {
-    width: '50%',
+    width: '100%',
   },
   button: {
     marginTop: theme.spacing.unit,
@@ -35,7 +36,7 @@ function getStepContent(step) {
     case 0:
       return (<ComplexButton />);
     case 1:
-      return 'An ad group contains one or more ads which target a shared set of keywords.';
+      return (<BasicInformationForm />);
     case 2:
       return `Try out different ad text to see what brings in the most customers,
               and learn how to enhance your ads using features like ad extensions.

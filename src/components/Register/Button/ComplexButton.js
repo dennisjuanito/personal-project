@@ -82,13 +82,13 @@ const images = [
   {
     url: "https://media.glassdoor.com/l/6d/04/bf/f6/ux-design-student.jpg",
     title: "Student",
-    width: "40%"
+    width: "50%"
   },
   {
     url:
       "https://blog.devmountain.com/wp-content/uploads/2018/07/37077673_2017748194962704_895636389297651712_o-750x400.jpg",
     title: "Mentor",
-    width: "40%"
+    width: "50%"
   }
 ];
 
