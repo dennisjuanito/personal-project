@@ -141,12 +141,7 @@ ButtonBases.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-function mapStateToProps(state) {
-  console.log(state);
-  return {
-    roles: state.registerReducer.roles
-  };
-}
+
 export default compose(
   withStyles(styles),
   connect(

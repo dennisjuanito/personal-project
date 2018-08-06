@@ -93,7 +93,7 @@ class AdditionalInformationForm extends Component {
           rowsMax="3"
           value={this.state.aLittleAboutMyself}
           onChange={this.handleChange("aLittleAboutMyself")}
-          margin="auto"
+          margin="normal"
         />
         {this.state.roles === "Mentor" ? (
           <div>

@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import dotenv from "dotenv";
 import RegisterStepper from "./RegisterStepper.js";
-import { Icon, Step, Button } from "semantic-ui-react";
+import axios from "axios";
+import {connect} from "react-redux";
+import {checkUserSession} from "../../ducks/reducers/checkSessionReducer.js";
 
 dotenv.config();
 
-export default class Register extends Component {
+class Register extends Component {
+
   render() {
-    // let {SERVER_PORT} = process.env;
-    // console.log(SERVER_PORT);
- 
     return (
       <div>
         <RegisterStepper />
@@ -17,3 +17,5 @@ export default class Register extends Component {
     );
   }
 }
+
+export default Register;

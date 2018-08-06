@@ -28,11 +28,13 @@ module.exports = async (req, res) => {
 
   if (isUserExists[0]) {
     req.session.user = isUserExists[0];
+    console.log(req.session.user);
     // res.redirect("http://localhost:3000/#/home");
     res.redirect("/home");
   } else { // the user does not exists
     dbInstance.createNewUser([email, sub, picture]).then(responseUser => {
       req.session.user = responseUser[0]
+      console.log(req.session.user);
       // res.redirect("http://localhost:3000/#/register");
       res.redirect("/register");
     }).catch(err => res.status(404).send(err));
