@@ -1,8 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
+import compose from "recompose/compose";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Typography from "@material-ui/core/Typography";
+import { connect } from "react-redux";
+import { updateRoles } from "../../../ducks/reducers/registerReducer.js";
 
 const styles = theme => ({
   root: {
@@ -92,10 +95,9 @@ const images = [
   }
 ];
 
-function ButtonBases(props) {
-  const { classes } = props;
-  function handleClick() {
-    console.log("it works");
+function ButtonBases({ classes, updateRoles }) {
+  function handleClick(title) {
+    updateRoles(title);
   }
 
   return (
@@ -106,7 +108,7 @@ function ButtonBases(props) {
           key={image.title}
           className={classes.image}
           focusVisibleClassName={classes.focusVisible}
-          onClick={handleClick}
+          onClick={() => handleClick(image.title)}
           style={{
             width: image.width
           }}
@@ -139,4 +141,18 @@ ButtonBases.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(ButtonBases);
+function mapStateToProps(state) {
+  console.log(state);
+  return {
+    roles: state.registerReducer.roles
+  };
+}
+export default compose(
+  withStyles(styles),
+  connect(
+    state => ({
+      roles: state.registerReducer.roles
+    }),
+    { updateRoles }
+  )
+)(ButtonBases);

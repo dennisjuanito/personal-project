@@ -3,10 +3,10 @@ const express = require("express"),
   bodyParser = require("body-parser"),
   session = require("express-session"),
   massive = require("massive"),
-  axios = require("axios"),
   authController = require("./controllers/authController.js"),
   logoutController = require("./controllers/logoutController.js"),
   checkSessionController = require("./controllers/checkSessionController.js"),
+  registerController = require("./controllers/registerController.js");
   sessionChecker = require("./middleware/sessionChecker.js");
 
 let { SERVER_PORT, CONNECTING_STRING, SECRET } = process.env;
@@ -31,8 +31,7 @@ app.use(
 app.get(`/auth/callback`, authController);
 app.get(`/api/logout`, logoutController);
 app.get(`/api/check-session`, checkSessionController);
-
-app.post(`/api/auth/register`);
+app.post(`/api/register`, registerController);
 
 
 

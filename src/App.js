@@ -5,17 +5,16 @@ import {withRouter} from "react-router-dom";
 import Home from './components/Home/Home';
 
 class App extends Component {
-  componentDidMount() {
-    console.log(this.props.history);
-  }
+ 
   render() {
     
     return (
       <div className="App">
+      {console.log(this.props)}
         {routes}
       </div>
     );
   }
 }
 
-export default withRouter(App);
+export default App;
