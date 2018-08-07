@@ -1,3 +1,42 @@
+create table Users
+(
+    id serial primary key not null,
+    email varchar(100) not null,
+    authId text not null,
+    avatar text not null,
+    firstName varchar(100),
+    lastName varchar(100),
+    age integer,
+    status varchar(100),
+    location varchar(100),
+    bootcampName varchar(100),
+    totalLikes integer,
+    totalEventCreated integer,
+    numberOfPosts integer,
+    aLittleAboutMyself text,
+    learningOrTrying varchar(200),
+    favoriteLanguages varchar(200),
+    skillsOrLanguages varchar(200),
+    projectsAndHacks varchar(200),
+    roles varchar(100)
+)
+
+create table Publishes
+(
+    id serial primary key not null,
+    userId integer references users(id) not null,
+    type varchar(100) not null,
+    postRelativeTimeFromNow text not null,
+    postPhoto text,
+    postContents text,
+    eventName varchar(200),
+    eventPhoto text,
+    eventLocation text,
+    eventDate varchar(200),
+    eventStartTime integer,
+    eventDescription text
+)
+
 -- create table Users(
 --     id serial primary key not null,
 --     email varchar(100) not null,
@@ -19,26 +58,3 @@
 --     projects_and_hacks varchar(200),
 --     roles varchar(100)
 -- )
-
-
-create table Users(
-    id serial primary key not null,
-    email varchar(100) not null,
-    authId text not null,
-    avatar text not null,
-    firstName varchar(100),
-    lastName varchar(100),
-    age integer,
-    status varchar(100),
-    location varchar(100),
-    bootcampName varchar(100),
-    totalLikes integer,
-    totalEventCreated integer,
-    numberOfPosts integer,
-    aLittleAboutMyself text,
-    learningOrTrying varchar(200),
-    favoriteLanguages varchar(200),
-    skillsOrLanguages varchar(200),
-    projectsAndHacks varchar(200),
-    roles varchar(100)
-)
