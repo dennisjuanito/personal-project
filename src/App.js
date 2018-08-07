@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import routes from "./routes.js";
 import {withRouter} from "react-router-dom";
-import Home from './components/Home/Home';
+import TopBar from './components/TopBar/TopBar';
+
 
 class App extends Component {
  
@@ -10,6 +11,7 @@ class App extends Component {
     
     return (
       <div className="App">
+      <TopBar />
       {console.log(this.props)}
         {routes}
       </div>
