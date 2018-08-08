@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-import { Button, Image, Modal } from "semantic-ui-react";
-import EventForm from "../Form/EventForm";
+import { Button, Modal } from "semantic-ui-react";
+import PostForm from "../Form/PostForm";
 import { connect } from "react-redux";
-import {
-  updatePostTitle,
-  updatePublishRelativeTimeFromNow,
-  updatePostContents,
-  updatePublishDate
-} from "../../../ducks/reducers/makePostReducer.js";
+// import {
+//   updatePostTitle,
+//   updatePublishRelativeTimeFromNow,
+//   updatePostContents,
+//   updatePublishDate
+// } from "../../../ducks/reducers/makePostReducer.js";
 import * as moment from "moment";
 import axios from "axios";
 import ImageUploader from "../ImageUploader/ImageUploader";
@@ -17,25 +17,19 @@ class PostModal extends Component {
 
   close = () => this.setState({ open: false });
   open = () => this.setState({ open: true });
-  handleSubmit = async () => {
-    // let { postTitle, postContents } = this.props.form.EventForm.values;
-    this.props.updatePostTitle(this.props.form.EventForm.values.postTitle);
-    this.props.updatePostContents(this.props.form.EventForm.values.postContents);
+  handleSubmit = () => {
     this.setState({ open: false });
+    console.log(this.props);
+    let { postTitle, postContents } = this.props.form.PostForm.values;
     let dateRightNow = moment().format("MMMM Do YYYY, h:mm:ss a");
-    this.props.updatePublishDate(dateRightNow);
-    let {
+    let { publishPhoto } = this.props.imageUploaderReducer;
+    let { id } = this.props.checkSessionReducer.user;
+    console.log(this.props);
+    axios.post(`/api/posts`, {
       postContents,
-      postPhoto,
+      publishPhoto,
       postTitle,
-      type
-    } = this.props.makePostReducer;
-    let {id} = this.props.checkSessionReducer.user;
-    await axios.post(`/api/posts`, {
-      postContents,
-      postPhoto,
-      postTitle,
-      type,
+      type: "Post",
       publishDate: dateRightNow,
       id
     });
@@ -69,7 +63,7 @@ class PostModal extends Component {
               </p>
               <p>Is it okay to use this photo?</p>
             </Modal.Description> */}
-            <EventForm />
+            <PostForm />
           </Modal.Content>
           <Modal.Actions>
             <Button color="black" onClick={this.close}>
@@ -91,10 +85,5 @@ class PostModal extends Component {
 
 export default connect(
   state => state,
-  {
-    updatePostTitle,
-    updatePublishRelativeTimeFromNow,
-    updatePublishDate,
-    updatePostContents
-  }
+  null
 )(PostModal);

@@ -2,7 +2,8 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import  promiseMiddleware  from "redux-promise-middleware";
 import  checkSessionReducer  from "./reducers/checkSessionReducer.js";
 import registerReducer from "./reducers/registerReducer.js";
-import makePostReducer from "./reducers/makePostReducer";
+// import makePostReducer from "./reducers/makePostReducer";
+import imageUploaderReducer from "./reducers/imageUploaderReducer.js";
 import {reducer as formReducer} from "redux-form";
 
 import {reducer as toastrReducer} from 'react-redux-toastr';
@@ -10,7 +11,7 @@ import {reducer as toastrReducer} from 'react-redux-toastr';
 const rootReducers = combineReducers({
   registerReducer,
   checkSessionReducer,
-  makePostReducer,
+  imageUploaderReducer,
   toastr: toastrReducer,
   form: formReducer
 });

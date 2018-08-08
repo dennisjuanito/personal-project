@@ -11,9 +11,9 @@ import "react-redux-toastr/lib/css/react-redux-toastr.min.css";
 import ReduxToastr from "react-redux-toastr";
 import "typeface-roboto";
 import ScrollToTop from "./util-components/ScrollToTop.js";
-import { MuiThemeProvider } from '@material-ui/core/styles';
+import { MuiThemeProvider } from "@material-ui/core/styles";
 import { createMuiTheme } from "@material-ui/core/styles";
-import red from '@material-ui/core/colors/red';
+import red from "@material-ui/core/colors/red";
 import { Provider } from "react-redux";
 
 const theme = createMuiTheme({
@@ -25,8 +25,10 @@ const theme = createMuiTheme({
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <ScrollToTop>
-        <ReduxToastr
+    <ScrollToTop>
+       
+          <MuiThemeProvider theme={theme}>
+          <ReduxToastr
           timeOut={9000}
           newestOnTop={false}
           preventDuplicates
@@ -34,12 +36,12 @@ ReactDOM.render(
           transitionIn="fadeIn"
           transitionOut="fadeOut"
         />
-        <MuiThemeProvider theme={theme}>
-          <App />
-        </MuiThemeProvider>
-      </ScrollToTop>
+            <App />
+          </MuiThemeProvider>
+          </ScrollToTop> 
     </BrowserRouter>
   </Provider>,
   document.getElementById("root")
 );
 unregister();
+    {/* */}      {/* */}

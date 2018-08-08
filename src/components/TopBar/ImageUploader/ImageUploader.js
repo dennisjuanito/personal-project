@@ -3,13 +3,13 @@ import { storage } from "../../../firebase/index.js";
 import firebase from "firebase/app";
 import { connect } from "react-redux";
 import { Image } from "semantic-ui-react";
-import { updatePostPhoto } from "../../../ducks/reducers/makePostReducer";
+import { updatePublishPhoto } from "../../../ducks/reducers/imageUploaderReducer";
 
 class ImageUploader extends Component {
   constructor() {
     super();
     this.state = {
-      postPhoto: null,
+      publishPhoto: null,
       url: "",
       progress: 0
     };
@@ -19,16 +19,16 @@ class ImageUploader extends Component {
     if (e.target.files[0]) {
       const image = e.target.files[0];
       this.setState({
-        postPhoto: image
+        publishPhoto: image
       });
     }
   };
 
   handleUpload = () => {
-    const { postPhoto } = this.state;
+    const { publishPhoto } = this.state;
     const uploadTask = storage
-      .ref(`postPhoto_images/${postPhoto}`)
-      .put(postPhoto);
+      .ref(`publishPhoto_images/${publishPhoto}`)
+      .put(publishPhoto);
     console.log(uploadTask);
     uploadTask.on(
       firebase.storage.TaskEvent.STATE_CHANGED,
@@ -46,15 +46,15 @@ class ImageUploader extends Component {
       () => {
         // complete function
         storage
-          .ref(`postPhoto_images/${postPhoto}`)
+          .ref(`publishPhoto_images/${publishPhoto}`)
           .getDownloadURL()
           .then(url => {
             console.log(this.props);
-            this.props.updatePostPhoto(url);
+            this.props.updatePublishPhoto(url);
             this.setState({ url });
             // AXIOS CALL TO SAVE IMAGE URL IN DB GOES HERE
           })
-          .then(() => this.setState({ postPhoto: null }));
+          .then(() => this.setState({ publishPhoto: null }));
       }
     );
   };
@@ -76,7 +76,7 @@ class ImageUploader extends Component {
           onChange={this.handleChange}
           innerRef={fileInput => (this.fileInput = fileInput)}
         />
-        {!this.state.postPhoto ? (
+        {!this.state.publishPhoto ? (
           <button onClick={() => this.fileInput.click()}>Select Image</button>
         ) : (
           <button onClick={this.handleUpload}>Choose This Image</button>
@@ -88,5 +88,5 @@ class ImageUploader extends Component {
 
 export default connect(
   state => state,
-  { updatePostPhoto }
+  { updatePublishPhoto }
 )(ImageUploader);

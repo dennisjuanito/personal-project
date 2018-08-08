@@ -8,47 +8,80 @@ import {
 } from "revalidate";
 import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
-import { updatePublishRelativeTimeFromNow, updatePublishDate } from "../../../ducks/reducers/makePostReducer.js";
 import RenderTextField from "../../../similar-components/RenderTextField.js";
 import styled from "styled-components";
 import { connect } from "react-redux";
+import TimeInput from "material-ui-time-picker";
+import InfiniteCalendar from "react-infinite-calendar";
+import PlacesAutocomplete from 'react-places-autocomplete';
+import "react-infinite-calendar/styles.css"; // Make sure to import the default stylesheet
+import { Button, Modal } from "semantic-ui-react";
 import renderTextArea from "../../../similar-components/RenderTextArea.js";
 
-const validatePostForm = combineValidators({
-  postTitle: isRequired("Post Title")
+const validateEventForm = combineValidators({
+  postTitle: isRequired("Event Title")
 });
 
 class EventForm extends Component {
-    // handleOnChange = values => {
-    //   console.log(values);
-    // };
+  // handleOnChange = values => {
+  //   console.log(values);
+  // };
+  state = {
+    time: "",
+    date: new Date()
+  };
 
+  handleChange = time => {
+    this.setState({ time });
+    console.log(this.state.time);
+  };
+
+  handleSelect = date => {
+    this.setState({ date });
+  };
   render() {
-    let { reset, handleSubmit } = this.props;
- console.log(handleSubmit);
+    var today = new Date();
+    var lastWeek = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate() - 7
+    );
+    let { reset } = this.props;
+
     return (
       <div>
-        <PostForm> 
-        {console.log(
-            "Ai "
-        )}
+        <TheEventForm>
           <Field
-            name="postTitle"
+            name="eventTitle"
             component={RenderTextField}
-            label="Post Title"
-            placeholder="Post Title"
+            label="Event Title"
+            placeholder="Event Title"
           />
           {/* <button type="submit">submit</button> */}
           <Field
-            name="postContents"
+            name="eventContents"
             component={renderTextArea}
-            label="Post Contents"
-            placeholder="Post Contents"
+            label="Event Contents"
+            placeholder="Event Contents"
           />
-          <button type="button" onClick={reset}>
+          <TimeInput
+            mode="24h"
+            value={this.state.time}
+            onChange={time => this.handleChange(time)}
+          />
+          <InfiniteCalendar
+            width={300}
+            height={250}
+            selected={new Date()}
+            onSelect={date => this.handleSelect(date)}
+            selected={today}
+            minDate={lastWeek}
+          />
+          <Button type="button" onClick={reset}>
             Reset
-          </button>
-        </PostForm>
+          </Button>
+        </TheEventForm>
+        {console.log(this.state.date)}
       </div>
     );
   }
@@ -60,18 +93,16 @@ function mapStateToProps(state) {
 
 const connectEventForm = connect(
   mapStateToProps,
-  { updatePublishRelativeTimeFromNow, updatePublishDate}
+  null
 )(EventForm);
 
 export default reduxForm({
   form: "EventForm",
   enableReinitialize: true,
-  validatePostForm
+  validateEventForm
 })(connectEventForm);
 
-
-
-const PostForm = styled.form`
-    display: flex;
-    flex-direction: column;
+const TheEventForm = styled.form`
+  display: flex;
+  flex-direction: column;
 `;

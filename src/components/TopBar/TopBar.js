@@ -6,6 +6,8 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import PostModal from "./Modal/PostModal";
+import EventModal from "./Modal/EventModal";
+import styled from "styled-components";
 
 class TopBar extends React.Component {
   state = {
@@ -27,11 +29,11 @@ class TopBar extends React.Component {
     return (
       <div>
         <AppBar position="static">
-          <Toolbar>
-            {
-              <div>
+          <StyleToolbar >
+            
 
                 <PostModal />
+                <EventModal />
                 <IconButton
                   aria-owns={open ? "menu-appbar" : null}
                   aria-haspopup="true"
@@ -57,12 +59,23 @@ class TopBar extends React.Component {
                   <MenuItem onClick={this.handleClose}>Profile</MenuItem>
                   <MenuItem onClick={this.handleClose}>My account</MenuItem>
                 </Menu>
-              </div>
-            }
-          </Toolbar>
+            
+          </StyleToolbar >
         </AppBar>
       </div>
     );
   }
 }
 export default TopBar;
+
+
+const StyleToolbar = styled(Toolbar)`
+      display: flex;
+      width: 100%;
+      justify-content: flex-end;
+      flex-direction: row-reverse;
+`;
+
+// const StylePostModal = styled(PostModal)`
+//       width: 520px;
+// `

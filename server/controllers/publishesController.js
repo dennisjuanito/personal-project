@@ -5,7 +5,7 @@ module.exports = {
       type,
       publishDate,
       postTitle,
-      postPhoto,
+      publishPhoto,
       postContents,
       id
     } = req.body;
@@ -14,7 +14,7 @@ module.exports = {
         type,
         publishDate,
         postTitle,
-        postPhoto,
+        publishPhoto,
         postContents,
         id
       ])
