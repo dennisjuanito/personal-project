@@ -9,7 +9,7 @@ class Home extends Component {
   componentDidMount() {
     axios.get(`/api/check-session`).then(response => {
       this.props.checkUserSession(response.data);
-      console.log(response);
+      // console.log(response);
       
     });
   }
@@ -18,7 +18,7 @@ class Home extends Component {
     console.log(this.props);
 
     let { user } = this.props.checkSessionReducer;
-    console.log(user);
+    // console.log(user);
     return (
       <div>
         {user.authId ? (
@@ -36,7 +36,7 @@ class Home extends Component {
   }
 }
 function mapStateToProps(state) {
-  console.log(state);
+  // console.log(state);
   return state;
 }
 
