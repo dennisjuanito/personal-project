@@ -18,19 +18,17 @@ const validatePostForm = combineValidators({
 });
 
 class PostForm extends Component {
-    // handleOnChange = values => {
-    //   console.log(values);
-    // };
+  // handleOnChange = values => {
+  //   console.log(values);
+  // };
 
   render() {
     let { reset, handleSubmit } = this.props;
- console.log(handleSubmit);
+    console.log(handleSubmit);
     return (
       <div>
-        < ThePostForm> 
-        {console.log(
-            "Ai "
-        )}
+        <ThePostForm>
+          {console.log("Ai ")}
           <Field
             name="postTitle"
             component={RenderTextField}
@@ -47,7 +45,7 @@ class PostForm extends Component {
           <button type="button" onClick={reset}>
             Reset
           </button>
-        </ ThePostForm>
+        </ThePostForm>
       </div>
     );
   }
@@ -59,7 +57,7 @@ function mapStateToProps(state) {
 
 const connectPostForm = connect(
   mapStateToProps,
- null
+  null
 )(PostForm);
 
 export default reduxForm({
@@ -68,9 +66,7 @@ export default reduxForm({
   validatePostForm
 })(connectPostForm);
 
-
-
 const ThePostForm = styled.form`
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 `;

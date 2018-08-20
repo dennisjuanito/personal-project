@@ -11,40 +11,52 @@ class EventModal extends Component {
 
   close = () => this.setState({ open: false });
   open = () => this.setState({ open: true });
-  handleSubmit = () => {
+  handleSubmit = async () => {
     this.setState({ open: false });
     console.log(this.props);
-    let { postTitle, postContents } = this.props.form.EventForm.values;
+    let {
+      eventName,
+      eventDescription,
+      eventStartTime,
+      latLng,
+      eventAddress,
+      eventDate
+    } = this.props.form.EventForm.values;
     let dateRightNow = moment().format("MMMM Do YYYY, h:mm:ss a");
     let { publishPhoto } = this.props.imageUploaderReducer;
     let { id } = this.props.checkSessionReducer.user;
-    console.log(this.props);
-    axios.post(`/api/posts`, {
-      postContents,
+
+    let eventPublished = await axios.post(`/api/events`, {
+      eventDescription,
       publishPhoto,
-      postTitle,
+      eventName,
+      eventStartTime: moment(eventStartTime).format("HH:mm a"),
+      eventDate: moment(eventDate).format("dddd, MMMM Do YYYY"),
       type: "Event",
       publishDate: dateRightNow,
       id
     });
+    let publishId = eventPublished.data.id;
+    let {lat, lng} = latLng;
+    axios.post(`/api/events/location`, {
+      eventAddress,
+      lat, 
+      lng,
+      publishId
+    });
   };
 
-  // for  updatePublishRelativeTimeFromNow
-  // moment(
-  //   moment().format("MMMM Do YYYY, h:mm:ss a"),
-  //   "MMMM Do YYYY, h:mm:ss a"
-  // ).fromNow()
   render() {
     const { open } = this.state;
     return (
       <div>
         <Button onClick={this.open}>Create Event</Button>
 
-        <Modal  open={open} onClose={this.close}>
+        <Modal open={open} onClose={this.close}>
           <Modal.Header>Upload a Event Photo</Modal.Header>
           <Modal.Content image>
             <ImageUploader />
-           
+
             <EventForm />
           </Modal.Content>
           <Modal.Actions>
@@ -70,17 +82,27 @@ export default connect(
   null
 )(EventModal);
 
- {/* <Modal.Description>
+// for  updatePublishRelativeTimeFromNow
+// moment(
+//   moment().format("MMMM Do YYYY, h:mm:ss a"),
+//   "MMMM Do YYYY, h:mm:ss a"
+// ).fromNow()
+
+{
+  /* <Modal.Description>
               <Header>Default Profile Image</Header>
               <p>
                 We've found the following gravatar image associated with your
                 e-mail address.
               </p>
               <p>Is it okay to use this photo?</p>
-            </Modal.Description> */}
+            </Modal.Description> */
+}
 
-                  {/* <Image
+{
+  /* <Image
               wrapped
               size="medium"
               src="https://react.semantic-ui.com/images/avatar/large/rachel.png"
-            /> */}
+            /> */
+}

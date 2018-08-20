@@ -1,6 +1,6 @@
 let initialState = {
     //  id: 0 because you already have an access to checkSessionReducer.js
-    publishPhoto: "Post",
+    publishPhoto: "Publish Photo",
   };
   
   // action constants

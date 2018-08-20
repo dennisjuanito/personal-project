@@ -4,11 +4,13 @@ import  checkSessionReducer  from "./reducers/checkSessionReducer.js";
 import registerReducer from "./reducers/registerReducer.js";
 // import makePostReducer from "./reducers/makePostReducer";
 import imageUploaderReducer from "./reducers/imageUploaderReducer.js";
+import homeReducer from "./reducers/homeReducer.js";
 import {reducer as formReducer} from "redux-form";
 
 import {reducer as toastrReducer} from 'react-redux-toastr';
 
 const rootReducers = combineReducers({
+  homeReducer,
   registerReducer,
   checkSessionReducer,
   imageUploaderReducer,

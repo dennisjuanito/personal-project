@@ -8,7 +8,8 @@ const express = require("express"),
   checkSessionController = require("./controllers/checkSessionController.js"),
   registerController = require("./controllers/registerController.js");
   sessionChecker = require("./middleware/sessionChecker.js"),
-  publishesController = require("./controllers/publishesController.js");
+  publishesController = require("./controllers/publishesController.js"),
+  userController = require("./controllers/usersController.js");
 
 let { SERVER_PORT, CONNECTING_STRING, SECRET } = process.env;
 const app = express();
@@ -54,17 +55,20 @@ app.put(`/api/register`, registerController);
 // app.post(`/api/auth/login`);
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Public post and events %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-app.post(`/api/events`); // add a new event
+app.post(`/api/events`, publishesController.createEvent); // add a new event
 app.post(`/api/posts`, publishesController.makePost); //  add a new post
+app.post(`/api/events/location`, publishesController.insertNewEventLocation); // add new location of the event
 app.get(`/api/posts/:postid:`); // get a post
 app.get(`/api/events/:eventid`); // get a event
-app.get(`/api/publishes`); // get all post and events
+app.get(`/api/publishes`, publishesController.getAllPublishes); // get all post and events
 app.put(`/api/posts/:postid`); // edit a post
-app.put(`/api/events/:event:id`); // edit a event
+app.put(`/api/events/:eventid`); // edit a event
 app.delete(`/api/posts/:postid`); // delete a post
 app.delete(`/api/events/:eventid`); // delete a event
 
-
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Users %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+// app.get(`/api/users/:userid`, userController.getUserById); // get a user by id
+   
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% My posts and events %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // more to go in the future
 

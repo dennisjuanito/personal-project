@@ -32,10 +32,18 @@ create table Publishes
     postTitle text,
     postContents text,
     eventName varchar(200),
-    eventLocation text,
-    eventDate varchar(200),
-    eventStartTime integer,
+    -- eventLocation integer references EventLocation(id),
+    eventDate varchar(700),
+    eventStartTime varchar(200),
     eventDescription text
+)
+
+create table EventLocation (
+    id serial primary key not null,
+    eventAddress text not null,
+    lat integer not null,
+    lng integer not null,
+    publishId integer REFERENCES Publishes(id) not null
 )
 
 -- create table Users(

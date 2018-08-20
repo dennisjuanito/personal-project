@@ -5,9 +5,11 @@ import IconButton from "@material-ui/core/IconButton";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
+import { withRouter } from "react-router-dom";
 import PostModal from "./Modal/PostModal";
 import EventModal from "./Modal/EventModal";
 import styled from "styled-components";
+
 
 class TopBar extends React.Component {
   state = {
@@ -28,52 +30,57 @@ class TopBar extends React.Component {
 
     return (
       <div>
-        <AppBar position="static">
-          <StyleToolbar >
-            
-
-                <PostModal />
-                <EventModal />
-                <IconButton
-                  aria-owns={open ? "menu-appbar" : null}
-                  aria-haspopup="true"
-                  onClick={this.handleMenu}
-                  color="inherit"
-                >
-                  <AccountCircle />
-                </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={somethingThatMakeOpen}
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right"
-                  }}
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right"
-                  }}
-                  open={open}
-                  onClose={this.handleClose}
-                >
-                  <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                  <MenuItem onClick={this.handleClose}>My account</MenuItem>
-                </Menu>
-            
-          </StyleToolbar >
-        </AppBar>
+        {this.props.location.pathname === "/" ? (
+          ""
+        ) : (
+          <AppBar position="static">
+            <StyleToolbar>
+              <PostModal />
+              <EventModal />
+              <IconButton
+                aria-owns={open ? "menu-appbar" : null}
+                aria-haspopup="true"
+                onClick={this.handleMenu}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={somethingThatMakeOpen}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right"
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right"
+                }}
+                open={open}
+                onClose={this.handleClose}
+              >
+                <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+                <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                <MenuItem>
+                  <a href={`/api/logout`}>
+                    <button>logout</button>
+                  </a>
+                </MenuItem>
+              </Menu>
+            </StyleToolbar>
+          </AppBar>
+        )}
       </div>
     );
   }
 }
-export default TopBar;
-
+export default withRouter(TopBar);
 
 const StyleToolbar = styled(Toolbar)`
-      display: flex;
-      width: 100%;
-      justify-content: flex-end;
-      flex-direction: row-reverse;
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  flex-direction: row-reverse;
 `;
 
 // const StylePostModal = styled(PostModal)`

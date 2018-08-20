@@ -25,23 +25,25 @@ const theme = createMuiTheme({
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-    <ScrollToTop>
-       
-          <MuiThemeProvider theme={theme}>
+      <ScrollToTop>
+        <MuiThemeProvider theme={theme}>
           <ReduxToastr
-          timeOut={9000}
-          newestOnTop={false}
-          preventDuplicates
-          position="top-left"
-          transitionIn="fadeIn"
-          transitionOut="fadeOut"
-        />
-            <App />
-          </MuiThemeProvider>
-          </ScrollToTop> 
+            timeOut={9000}
+            newestOnTop={false}
+            preventDuplicates
+            position="top-left"
+            transitionIn="fadeIn"
+            transitionOut="fadeOut"
+          />
+          <App />
+        </MuiThemeProvider>
+      </ScrollToTop>
     </BrowserRouter>
   </Provider>,
   document.getElementById("root")
 );
 unregister();
-    {/* */}      {/* */}
+
+
+
+
